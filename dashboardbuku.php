@@ -1,6 +1,6 @@
 <?php
-include './model/user.php';
-$user = new user();
+include './model/buku.php';
+$buku = new buku();
 session_start();
 if (!isset($_SESSION['id'])) {
     header('location:index.php');
@@ -20,51 +20,51 @@ if (!isset($_SESSION['id'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-    <title>E-Library | Dashboard</title>
+    <title>E-Library | Buku</title>
 </head>
 <body>
     <header class="container pt-3">
         <nav class="navbar navbar-dark glass rounded-3">
             <div class="container-fluid justify-content-start gap-4">
                 <a class="navbar-brand" href="#">E-Librarry</a>
-                <a href="#top" class="menu-list active">User</a>
-                <a href="./dashboardbuku.php" class="menu-list">Buku</a>
+                <a href="./dashboard.php" class="menu-list">User</a>
+                <a href="#top" class="menu-list active">Buku</a>
             </div>
         </nav>
     </header>
     <main class="container pt-3">
-        <h1 class="text-white">Table User</h1>
+        <h1 class="text-white">Table Buku</h1>
         <span class="d-flex justify-content-end mb-3">
-            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#add-modal">Tambah User</button>
+            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#add-modal">Tambah Buku</button>
         </span>
         <table border="1" class="table table-responsive glass text-white rounded-3 overflow-hidden">
             <thead class="text-center">
                 <tr>
                     <th>No</th>
                     <th>ID</th>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Nama</th>
+                    <th>Nama Buku</th>
+                    <th>Nama User</th>
+                    <th>Harga Buku</th>
                     <th>Opsi</th>
                 </tr>
             </thead>
             <tbody class="text-center">
                 <?php
                     $no = 1;
-                    if (!empty($user->getAllUser()))
+                    if (!empty($buku->getAllBuku()))
                     {
-                        foreach ($user->getAllUser() as $u)
+                        foreach ($buku->getAllBuku() as $b)
                         { ?>
                             <tr>
                                 <td><?php echo $no++; ?></td>
-                                <td><?php echo $u['id']; ?></td>
-                                <td><?php echo $u['username']; ?></td>
-                                <td><?php echo $u['password']; ?></td>
-                                <td><?php echo $u['nama']; ?></td>
+                                <td><?php echo $b['buku']['id']; ?></td>
+                                <td><?php echo $b['buku']['nama_buku']; ?></td>
+                                <td><?php echo $b['user']['nama']; ?></td>
+                                <td><?php echo $b['buku']['harga_buku']; ?></td>
                                 <td class="d-flex justify-content-center gap-2">
                                     <a href="#" class="btn btn-success" role="button">Detail</a>
                                     <a href="#" class="btn btn-primary" role="button">Edit</a>
-                                    <button class="btn btn-danger" role="button" onclick="" <?php if ($u['id'] == $_SESSION['id'] ) echo "disabled"; ?>>Hapus</a>
+                                    <button class="btn btn-danger" role="button" onclick="">Hapus</a>
                                 </td>
                             </tr>
                     <?php } 
@@ -85,7 +85,7 @@ if (!isset($_SESSION['id'])) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Tambah User</h5>
+                    <h5 class="modal-title">Tambah Buku</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

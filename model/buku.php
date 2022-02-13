@@ -5,7 +5,10 @@ class buku extends database
     // Method menampilkan semua data buku
     function getAllBuku()
     {
-        $data = mysqli_query($this->koneksi, "SELECT * FROM buku");
+        $query = "SELECT * FROM buku
+                    INNER JOIN user WHERE user.id = buku.id_user
+                    ORDER BY buku.nama_buku";
+        $data = mysqli_query($this->koneksi, $query);
         if (mysqli_num_rows($data) > 0) {
             while($d = mysqli_fetch_array($data)) {
                 $hasil[] = $d;
@@ -18,7 +21,8 @@ class buku extends database
     // Method menampilkan data buku berdasarkan id
     function getBukuById($id)
     {
-        $data = mysqli_query($this->koneksi, "SELECT * FROM buku WHERE id = '$id'");
+        $query = "SELECT * FROM buku WHERE id = '$id'";
+        $data = mysqli_query($this->koneksi, $query);
         if (mysqli_num_rows($data) == 1) {
             while($d = mysqli_fetch_array($data)) {
                 $hasil[] = $d;

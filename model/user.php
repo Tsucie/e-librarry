@@ -33,19 +33,19 @@ class user extends database
     // Menambah data user
     function addUser($username, $password, $nama)
     {
-
+        mysqli_query($this->koneksi, "INSERT INTO user VALUES('','$username','$password','$nama')");
     }
 
     // Mengedit data user
     function editUser($id, $username, $password, $nama)
     {
-
+        mysqli_query($this->koneksi, "UPDATE user SET username='$username',`password`='$password',nama='$nama' WHERE id='$id'");
     }
 
     // Menghapus data user
     function hapusUser($id)
     {
-
+        mysqli_query($this->koneksi, "DELETE FROM user WHERE id='$id'");
     }
 }
 ?>
